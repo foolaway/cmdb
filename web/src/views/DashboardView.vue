@@ -142,6 +142,8 @@ const menuOptions = [
 // 左侧菜单栏被收起或展开调用
 function autoChangeRightContentWidth(collapsed) {
   document.getElementById("right-content").style.width = (collapsed ? window.innerWidth - 64 : window.innerWidth - 240) + "px";
+  document.getElementById("logout-button").style.width = (collapsed ? "45px" : "220px")
+  document.getElementById("logout-button").innerText = (collapsed ? "X" : "退 出 登 录")
 }
 
 function handleMenuClicked(key, item) {
@@ -161,32 +163,33 @@ onMounted(() => {
 
 <template>
   <div class="dashboard-view">
-      <n-space vertical>
-        <n-layout has-sider>
-          <n-layout-sider
-              id="left-menu"
-              bordered
-              show-trigger
-              collapse-mode="width"
-              :collapsed-width="64"
-              :width="240"
-              :native-scrollbar="false"
-              :inverted="inverted"
-              :on-update:collapsed="autoChangeRightContentWidth"
-          >
-            <n-menu
-                :inverted="inverted"
-                :collapsed-width="64"
-                :collapsed-icon-size="22"
-                :options="menuOptions"
-                @update:value="handleMenuClicked"
-            />
-          </n-layout-sider>
-          <n-layout-content id="right-content" content-style="padding: 24px">
-            <router-view></router-view>
-          </n-layout-content>
-        </n-layout>
-      </n-space>
+    <n-button id="logout-button" strong secondary
+              style="width: 220px; position: absolute; bottom: 10px; left: 10px; z-index: 999">退&nbsp;出&nbsp;登&nbsp;录
+    </n-button>
+    <n-layout has-sider>
+      <n-layout-sider
+          id="left-menu"
+          bordered
+          show-trigger
+          collapse-mode="width"
+          :collapsed-width="64"
+          :width="240"
+          :native-scrollbar="false"
+          :inverted="inverted"
+          :on-update:collapsed="autoChangeRightContentWidth"
+      >
+        <n-menu
+            :inverted="inverted"
+            :collapsed-width="64"
+            :collapsed-icon-size="22"
+            :options="menuOptions"
+            @update:value="handleMenuClicked"
+        />
+      </n-layout-sider>
+      <n-layout-content id="right-content" content-style="padding: 24px">
+        <router-view></router-view>
+      </n-layout-content>
+    </n-layout>
   </div>
 </template>
 
