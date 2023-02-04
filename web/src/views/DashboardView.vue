@@ -1,5 +1,5 @@
 <script setup>
-import {RouterLink, RouterView} from 'vue-router'
+import {RouterLink, RouterView, useRouter} from 'vue-router'
 import {h, onMounted} from "vue";
 import {NIcon} from "naive-ui";
 import {
@@ -19,6 +19,8 @@ import {
   AuditOutlined,
   InfoCircleOutlined
 } from "@vicons/antd";
+
+const router = useRouter();
 
 function renderIcon(icon) {
   return () => h(NIcon, null, {default: () => h(icon)});
@@ -144,6 +146,8 @@ function autoChangeRightContentWidth(collapsed) {
   document.getElementById("right-content").style.width = (collapsed ? window.innerWidth - 64 : window.innerWidth - 240) + "px";
   document.getElementById("logout-button").style.width = (collapsed ? "45px" : "220px")
   document.getElementById("logout-button").innerText = (collapsed ? "X" : "退 出 登 录")
+  document.getElementById("logout-button").style.transition = (collapsed ? "width 0.2s" : "width 0.4s");
+
 }
 
 function handleMenuClicked(key, item) {
@@ -159,11 +163,17 @@ onMounted(() => {
     autoChangeRightContentWidth()
   }
 })
+
+function handleLogoutButtonClicked() {
+  router.push({
+    path: "/login"
+  })
+}
 </script>
 
 <template>
   <div class="dashboard-view">
-    <n-button id="logout-button" strong secondary
+    <n-button @click="handleLogoutButtonClicked" id="logout-button" strong secondary
               style="width: 220px; position: absolute; bottom: 10px; left: 10px; z-index: 999">退&nbsp;出&nbsp;登&nbsp;录
     </n-button>
     <n-layout has-sider>
@@ -186,7 +196,7 @@ onMounted(() => {
             @update:value="handleMenuClicked"
         />
       </n-layout-sider>
-      <n-layout-content id="right-content" content-style="padding: 24px">
+      <n-layout-content id="right-content" content-style="padding: 20px">
         <router-view></router-view>
       </n-layout-content>
     </n-layout>
