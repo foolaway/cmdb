@@ -1,25 +1,49 @@
 <template>
-   <div class="repo-step-view">
-     <n-card style="width: 100%; height: 100%;">
-       <div style="width:100%; height:100%; display: flex; flex-direction: column;">
-         <div class="step-form-content">
-           farm contentrepo-step-view
-         </div>
-         <div class="step-op-area">
-           <n-button strong style="margin-right: 10px">取&nbsp;消</n-button>
-           <n-button strong type="primary" @click="handleStepNextButtonClicked">下&nbsp;一&nbsp;步</n-button>
-         </div>
-       </div>
-     </n-card>
-   </div>
+  <div class="repo-step-view">
+    <n-card style="width: 100%; height: 100%;">
+      <div style="width:100%; height:100%; display: flex; flex-direction: column;">
+        <div class="step-form-content">
+          <div style="margin-bottom: 25px">
+            <div style="font-size: 15pt; margin-bottom: 15px">存储库:</div>
+            <n-input style="width: 500px;" type="text" placeholder="请输入已经放置到 CMDB 的存储库名称"/>
+          </div>
+          <div style="margin-bottom: 25px">
+            <div style="font-size: 15pt; margin-bottom: 15px">存储库:</div>
+            <n-input style="width: 150px;" type="text" placeholder="请输入存储库分支"/>
+          </div>
+          <div style="margin-bottom: 25px">
+            <div style="font-size: 15pt; margin-bottom: 15px">存储库:</div>
+            <n-input style="width: 150px;" type="text" placeholder="请输入存储库标签"/>
+          </div>
+          <div>
+            <n-alert title="处理中" type="info" v-if="gitRepoCheckStatus === 'check'">
+              正在检查指定存储库中的配置数据是否可用
+            </n-alert>
+            <n-alert title="配置数据可用" type="success" v-if="gitRepoCheckStatus === 'ok'">
+              恭喜,这个存储库中的配置数据可以被同步到机器或者群组
+            </n-alert>
+            <n-alert title="配置数据不可用" type="error" v-if="gitRepoCheckStatus === 'error'">
+              遗憾,这个存储库出现了一些问题
+            </n-alert>
+          </div>
+        </div>
+        <div class="step-op-area">
+          <n-button strong style="margin-right: 10px">重&nbsp;做</n-button>
+          <n-button strong type="primary" @click="handleStepNextButtonClicked" :loading="nextButtonLoading">下&nbsp;一&nbsp;步</n-button>
+        </div>
+      </div>
+    </n-card>
+  </div>
 </template>
 
 <script setup>
 import {useRouter} from 'vue-router'
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 
 const router = useRouter();
 const emit = defineEmits(['update-step-index', 'update-step-status'])
+let gitRepoCheckStatus = ref("check")
+let nextButtonLoading = ref(false)
 
 function handleStepNextButtonClicked() {
   router.push({
@@ -28,7 +52,7 @@ function handleStepNextButtonClicked() {
 }
 
 onMounted(() => {
-  emit('update-step-index',"1")
+  emit('update-step-index', "1")
 })
 </script>
 
