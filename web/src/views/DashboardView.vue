@@ -173,6 +173,18 @@ function handleLogoutButtonClicked() {
 
 <template>
   <div class="dashboard-view">
+    <n-watermark
+        content="张三 Z3333333"
+        cross
+        fullscreen
+        :font-size="16"
+        :line-height="16"
+        :width="384"
+        :height="384"
+        :x-offset="12"
+        :y-offset="60"
+        :rotate="-15"
+    />
     <n-button @click="handleLogoutButtonClicked" id="logout-button" strong secondary
               style="width: 220px; position: absolute; bottom: 10px; left: 10px; z-index: 999">退&nbsp;出&nbsp;登&nbsp;录
     </n-button>

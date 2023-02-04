@@ -44,8 +44,96 @@ import {h, reactive, ref} from "vue";
 import {NButton, NTag} from "naive-ui";
 import {SearchOutlined, CloseOutlined} from "@vicons/antd"
 
-const columns = [];
-let members = ref([]);
+let members = ref([
+  {
+    "key": "0",
+    "name": "小张",
+    "no": "z33333333333",
+    "group": "运维一组",
+    "arch-group": "xxxxx/xxx/xxx",
+    "phone": "13333333333",
+    "email": "zs@zs.com",
+    "sex": "男",
+    "create-time": "2022:02:02 00:00:00",
+    "update-time": "2022:02:02 00:00:00"
+  }
+]);
+
+const columns = [
+  {
+    type: "selection",
+    fixed: "left"
+  },
+  {
+    title: "姓名",
+    key: "name",
+    fixed: "left",
+    width: 100
+  },
+  {
+    title: "工号",
+    key: "no",
+    fixed: "left",
+    width: 150
+  },
+  {
+    title: "组",
+    key: "group",
+    width: 200,
+    fixed: "left",
+  },
+  {
+    title: "手机",
+    key: "phone",
+    width: 150
+  },
+  {
+    title: "邮箱",
+    key: "email",
+    width: 230
+  },
+  {
+    title: "性别",
+    key: "sex",
+    width: 100
+  },
+  {
+    title: "组织架构",
+    key: "arch-group",
+    width: 150,
+    resizable: true
+  },
+  {
+    title: "创建时间",
+    key: "create-time",
+    width: 200
+  },
+  {
+    title: "最后一次修改时间",
+    key: "update-time",
+    width: 200
+  },
+  {
+    title: "操作",
+    key: "op",
+    render(row) {
+      return h(
+          NButton,
+          {
+            size: "tiny",
+            onClick: () => handleDeleteCurrentItemButtonClicked(row),
+          },
+          {default: () => "删除"}
+      );
+    },
+    fixed: "right",
+    width: 150
+  }
+];
+
+function handleDeleteCurrentItemButtonClicked() {
+
+}
 
 const paginationReactive = reactive({
   page: 2,

@@ -44,8 +44,80 @@ import {h, reactive, ref} from "vue";
 import {NButton, NTag} from "naive-ui";
 import {SearchOutlined, CloseOutlined} from "@vicons/antd"
 
-const columns = [];
-let safeGroups = ref([]);
+let safeGroups = ref([
+  {
+    "key": "0",
+    "name": "常规",
+    "ports": ["IN:TCP:80", "IN:TCP:443", "OUT:TCP:443", "ALL:TCP:22"],
+    "create-time": "2023/12/12 00:00:00",
+    "usage": "常规的静态 WEB 服务 和 远程管理端口"
+  }
+]);
+
+const columns = [
+  {
+    type: "selection",
+    fiex: "left"
+  },
+  {
+    title: "名称",
+    key: "name",
+    fixed: "left",
+    width: 250
+  },
+  {
+    title: "放行端口列表",
+    key: "ports",
+    render(row) {
+      return row["ports"].map((tagKey) => {
+        return h(
+            NTag,
+            {
+              style: {
+                marginRight: "6px",
+                marginTop: "2px"
+              },
+              type: "info",
+              bordered: false,
+              size: "small"
+            },
+            {
+              default: () => tagKey
+            }
+        );
+      });
+    },
+    resizable: true
+  },
+  {
+    title: "创建时间",
+    key: "create-time"
+  },
+  {
+    title: "业务需求",
+    key: "usage"
+  },
+  {
+    title: "操作",
+    key: "op",
+    render(row) {
+      return h(
+          NButton,
+          {
+            size: "tiny",
+            onClick: () => handleDeleteCurrentItemButtonClicked(row),
+          },
+          {default: () => "删除"}
+      );
+    },
+    fixed: "right",
+    width: 150
+  }
+];
+
+function handleDeleteCurrentItemButtonClicked(row) {
+
+}
 
 const paginationReactive = reactive({
   page: 2,

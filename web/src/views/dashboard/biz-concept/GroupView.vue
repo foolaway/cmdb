@@ -44,8 +44,66 @@ import {h, reactive, ref} from "vue";
 import {NButton, NTag} from "naive-ui";
 import {SearchOutlined, CloseOutlined} from "@vicons/antd"
 
-const columns = [];
-let groups = ref([]);
+let groups = ref([
+  {
+    "key": "0",
+    "name": "运维一组",
+    "create-time": "2023/12/12 00:00:00",
+    "usage": "用于处理日常工作"
+  }
+]);
+
+const columns = [
+  {
+    type: "selection",
+    fiex: "left"
+  },
+  {
+    title: "名称",
+    key: "name",
+    fixed: "left",
+    width: 150
+  },
+  {
+    title: "层级",
+    key: "level",
+    fixed: "left",
+    width: 80
+  },
+  {
+    title: "所属群组",
+    key: "parent",
+    width: 250
+  },
+  {
+    title: "创建时间",
+    key: "create-time"
+  },
+  {
+    title: "业务需求",
+    key: "usage"
+  },
+  {
+    title: "操作",
+    key: "op",
+    render(row) {
+      return h(
+          NButton,
+          {
+            size: "tiny",
+            onClick: () => handleDeleteCurrentItemButtonClicked(row),
+          },
+          {default: () => "删除"}
+      );
+    },
+    fixed: "right",
+    width: 150
+  }
+];
+
+function handleDeleteCurrentItemButtonClicked(row) {
+
+}
 
 const paginationReactive = reactive({
   page: 2,
