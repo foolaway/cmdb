@@ -9,6 +9,13 @@
       </template>
     </n-page-header>
     <div class="op-area">
+      <n-input style="width: 700px; margin-right: 15px" v-model:value="memberName" type="text" placeholder="请输入姓名"></n-input>
+      <n-input style="width: 700px; margin-right: 15px" v-model:value="memberNo" type="text" placeholder="请输入工号"></n-input>
+      <n-input style="width: 700px; margin-right: 15px" v-model:value="memberGroup" type="text" placeholder="请输入组"></n-input>
+      <n-input style="width: 700px; margin-right: 15px" v-model:value="memberPhone" type="text" placeholder="请输入手机号码"></n-input>
+      <n-input style="width: 700px; margin-right: 15px" v-model:value="memberEmail" type="text" placeholder="请输入工作邮箱"></n-input>
+      <n-select style="width: 700px; margin-right: 15px" v-model:value="memberSexSelectOptionValue" :options="memberSexSelectOptions" placeholder="请选择性别"></n-select>
+      <n-input style="margin-right: 15px" v-model:value="memberArch" type="text" placeholder="请输入组织架,支持全文检索.."></n-input>
       <n-tooltip trigger="hover">
         <template #trigger>
           <n-button tertiary circle style="margin-left: 5px">
@@ -43,6 +50,29 @@
 import {h, reactive, ref} from "vue";
 import {NButton, NTag} from "naive-ui";
 import {SearchOutlined, CloseOutlined} from "@vicons/antd"
+
+let memberName = ref("")
+let memberNo = ref("")
+let memberGroup = ref("")
+let memberPhone = ref("")
+let memberEmail = ref("")
+let memberSexSelectOptionValue = ref(null)
+let memberArch = ref("")
+
+const memberSexSelectOptions = [
+  {
+    label: "全部",
+    value: null
+  },
+  {
+    label: "男",
+    value: "男"
+  },
+  {
+    label: "女",
+    value: "女"
+  }
+];
 
 let members = ref([
   {

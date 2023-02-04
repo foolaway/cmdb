@@ -118,7 +118,7 @@ const menuOptions = [
     icon: renderIcon(FileOutlined),
     children: [
       {
-        label: renderRouteLink("/dashboard/config/repo", {}, "存储"),
+        label: renderRouteLink("/dashboard/config/repo", {}, "存储库"),
         key: "repo",
         icon: renderIcon(GithubFilled)
       },

@@ -9,6 +9,8 @@
       </template>
     </n-page-header>
     <div class="op-area">
+      <n-input style="width: 500px; margin-right: 15px" v-model:value="resPoolName" type="text" placeholder="请输入名称"></n-input>
+      <n-input v-model:value="resPoolBizName" type="text" placeholder="请输入业务需求,支持全文检索.."></n-input>
       <n-tooltip trigger="hover">
         <template #trigger>
           <n-button tertiary circle style="margin-left: 5px">
@@ -44,14 +46,17 @@ import {h, reactive, ref} from "vue";
 import {NButton, NTag} from "naive-ui";
 import {SearchOutlined, CloseOutlined} from "@vicons/antd"
 
-// let resPools = ref([
-//   {
-//     "key": "0",
-//     "name": "运维一组",
-//     "create-time": "2023/12/12 00:00:00",
-//     "usage": "用于处理日常工作"
-//   }
-// ]);
+let resPoolName = ref("");
+let resPoolBizName = ref("");
+
+let resPools = ref([
+  // {
+  //   "key": "0",
+  //   "name": "运维一组",
+  //   "create-time": "2023/12/12 00:00:00",
+  //   "usage": "用于处理日常工作"
+  // }
+]);
 
 const columns = [
   {

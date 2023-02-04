@@ -9,6 +9,10 @@
       </template>
     </n-page-header>
     <div class="op-area">
+      <n-input style="width: 700px; margin-right: 15px" v-model:value="groupName" type="text" placeholder="请输入名称"></n-input>
+      <n-select style="width: 360px; margin-right: 15px" v-model:value="groupLevelSelectOptionValue" :options="groupLevelSelectOptions" placeholder="请选择层级" />
+      <n-input style="width: 700px; margin-right: 15px" v-model:value="parentGroup" type="text" placeholder="请输入所属群组"></n-input>
+      <n-input v-model:value="bizDemand" type="text" placeholder="请输入业务需求,支持全文检索"></n-input>
       <n-tooltip trigger="hover">
         <template #trigger>
           <n-button tertiary circle style="margin-left: 5px">
@@ -43,6 +47,32 @@
 import {h, reactive, ref} from "vue";
 import {NButton, NTag} from "naive-ui";
 import {SearchOutlined, CloseOutlined} from "@vicons/antd"
+
+let groupName = ref("");
+let parentGroup = ref("")
+let bizDemand = ref("")
+
+let groupLevelSelectOptionValue = ref(null);
+const groupLevelSelectOptions = [
+  {
+    label: "全部",
+    value: null
+  },
+  {
+    label: "第一层",
+    value: "第一层"
+  },
+  {
+    label: "第二层",
+    value: "第二层"
+  },
+  {
+    label: "第三层",
+    value: "第三层"
+  }
+];
+
+
 
 let groups = ref([
   {

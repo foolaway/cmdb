@@ -9,6 +9,8 @@
       </template>
     </n-page-header>
     <div class="op-area">
+      <n-input style="width: 500px; margin-right: 15px" v-model:value="safeGroupName" type="text" placeholder="请输入名称"></n-input>
+      <n-input v-model:value="safeGroupBizDemand" type="text" placeholder="请输入业务需求,支持全文检索.."></n-input>
       <n-tooltip trigger="hover">
         <template #trigger>
           <n-button tertiary circle style="margin-left: 5px">
@@ -43,6 +45,9 @@
 import {h, reactive, ref} from "vue";
 import {NButton, NTag} from "naive-ui";
 import {SearchOutlined, CloseOutlined} from "@vicons/antd"
+
+let safeGroupName = ref("")
+let safeGroupBizDemand = ref("")
 
 let safeGroups = ref([
   {
