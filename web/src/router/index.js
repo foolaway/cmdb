@@ -101,7 +101,38 @@ const router = createRouter({
                         {
                             path: 'vcs',
                             name: 'config-vcs',
-                            component: () => import('../views/dashboard/config/VCSView.vue')
+                            component: () => import('../views/dashboard/config/VCSView.vue'),
+                            children: [
+                                {
+                                    path: '',
+                                    component: () => import("../views/dashboard/config/vcs/RepoStepView.vue")
+                                },
+                                {
+                                    path: "repo-step",
+                                    name: "repo-step",
+                                    component: () => import("../views/dashboard/config/vcs/RepoStepView.vue")
+                                },
+                                {
+                                    path: "directory-step",
+                                    name: "directory-step",
+                                    component: () => import("../views/dashboard/config/vcs/DirectoryStepView.vue")
+                                },
+                                {
+                                    path: "target-step",
+                                    name: "target-step",
+                                    component: () => import("../views/dashboard/config/vcs/TargetStepView.vue")
+                                },
+                                {
+                                    path: "execute-step",
+                                    name: "execute-step",
+                                    component: () => import("../views/dashboard/config/vcs/ExecuteStepView.vue")
+                                },
+                                {
+                                    path: "finsh-step",
+                                    name: "finsh-step",
+                                    component: () => import("../views/dashboard/config/vcs/FinshStepVIew.vue")
+                                }
+                            ]
                         }
                     ]
                 },

@@ -9,7 +9,7 @@
       </template>
     </n-page-header>
     <n-card>
-      <n-steps >
+      <n-steps :current="(currentStepIndex)" :status="currentStepStatus">
         <n-step
             title="选择配置存储库"
             description="选择一个 Git 存储, 并设置分支与提交版本"
@@ -32,15 +32,24 @@
         />
       </n-steps>
     </n-card>
-    <router-view style="width: 100%; height: 100%;"></router-view>
+    <router-view @update-step-index="setCurrentStepIndex" @update-step-status="setCurrentStepStatus" style="width: 100%; height: 100%;"></router-view>
     <div style="width: 100%; min-height: 20px">&nbsp;</div>
   </div>
 </template>
 
 <script setup>
-import {h, reactive, ref} from "vue";
-import {NButton, NTag} from "naive-ui";
-import {SearchOutlined, CloseOutlined} from "@vicons/antd"
+import {ref} from "vue";
+
+let currentStepIndex = ref(1)
+let currentStepStatus = ref("process") //'process' | 'finish' | 'error' | 'wait'
+
+function setCurrentStepIndex(index) {
+  currentStepIndex.value = index;
+}
+
+function setCurrentStepStatus(status) {
+  currentStepStatus.value = status;
+}
 
 
 </script>
