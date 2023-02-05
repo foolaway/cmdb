@@ -83,6 +83,7 @@
 import {h, reactive, ref} from "vue";
 import {NButton, NTag, useDialog, useMessage} from "naive-ui";
 import {SearchOutlined, CloseOutlined, DeleteOutlined, PlusOutlined} from "@vicons/antd"
+import TableOperationAreaButtonGroup from "@/components/TableOperationAreaButtonGroup.vue";
 
 const dialog = useDialog();
 const message = useMessage();
@@ -178,22 +179,27 @@ const columns = [
     key: "op",
     render(row) {
       return h(
-          NButton,
+          TableOperationAreaButtonGroup,
           {
-            size: "tiny",
-            onClick: () => handleDeleteCurrentItemButtonClicked(row),
-          },
-          {default: () => "删除"}
+            isShowDetail: true,
+            isShowModify: true,
+            isShowDelete: true,
+            onDetailButtonClicked: () =>{
+
+            },
+            onModifyButtonClicked: () => {
+
+            },
+            onDeleteButtonClicked: () => {
+
+            }
+          }
       );
     },
     fixed: "right",
     width: 150
   }
 ];
-
-function handleDeleteCurrentItemButtonClicked(row) {
-
-}
 
 const paginationReactive = reactive({
   page: 2,

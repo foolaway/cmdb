@@ -26,7 +26,7 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px" secondary type="primary" @click="handleAddButtonClicked" >
+          <n-button tertiary circle style="margin-left: 5px" secondary type="primary" @click="handleAddButtonClicked">
             <template #icon>
               <n-icon>
                 <PlusOutlined/>
@@ -38,7 +38,8 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px" secondary type="error" @click="handleBatchDeleteButtonClicked">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error"
+                    @click="handleBatchDeleteButtonClicked">
             <template #icon>
               <n-icon>
                 <DeleteOutlined/>
@@ -81,9 +82,10 @@
 </template>
 
 <script setup>
-import {h, reactive, ref} from "vue";
+import {reactive, ref, defineComponent, h} from "vue";
 import {NButton, NTag, useDialog, useMessage} from "naive-ui";
 import {SearchOutlined, CloseOutlined, DeleteOutlined, PlusOutlined} from "@vicons/antd"
+import TableOperationAreaButtonGroup from "@/components/TableOperationAreaButtonGroup.vue";
 
 const dialog = useDialog();
 const message = useMessage();
@@ -110,7 +112,7 @@ function onAddModalAfterLeave() {
 
 }
 
-function onAddModalFailed(){
+function onAddModalFailed() {
 
 }
 
@@ -146,7 +148,7 @@ let groups = ref([
 const columns = [
   {
     type: "selection",
-    fiex: "left"
+    fixed: "left"
   },
   {
     title: "名称",
@@ -169,12 +171,18 @@ const columns = [
     key: "op",
     render(row) {
       return h(
-          NButton,
+          TableOperationAreaButtonGroup,
           {
-            size: "tiny",
-            onClick: () => handleDeleteCurrentItemButtonClicked(row),
-          },
-          {default: () => "删除"}
+            isShowDetail: true,
+            isShowModify: true,
+            isShowDelete: true,
+            onDetailButtonClicked: () => {
+            },
+            onModifyButtonClicked: () => {
+            },
+            onDeleteButtonClicked: () => {
+            }
+          }
       );
     },
     fixed: "right",
