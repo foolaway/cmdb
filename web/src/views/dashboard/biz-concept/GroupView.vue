@@ -66,13 +66,20 @@
       </n-tooltip>
     </div>
     <n-data-table :columns="columns" :data="groups" :pagination="paginationReactive" striped/>
-    <n-modal v-model:show="isShowModal" :segmented="false"
-             :mask-closable="false" preset="card" title="添加群组"
+    <n-modal v-model:show="isShowAddModal" :segmented="false"
+             :mask-closable="false" preset="card" title="添加群组(服务)"
              :on-after-leave="onAddModalAfterLeave"
              style="width: 45%; min-width: 600px">
       <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
-        <div style="width: 1000px">
-          Model Content
+        <div style="width: 100%">
+          <div style="font-size: 12pt; font-weight: bold;">名称</div>
+          <n-input type="text" placeholder="必填,请输入名称" style="margin-bottom: 10px;" />
+          <div style="font-size: 12pt; font-weight: bold;">层级</div>
+          <n-select  placeholder="必填,请选择层级" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">所属群组</div>
+          <n-select  placeholder="必填,请选择所属群组" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">业务需求</div>
+          <n-input type="text" placeholder="必填,请输入业务需求" style="margin-bottom: 10px;" />
         </div>
         <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
           <n-button @click="onAddModalFailed" style="margin-right: 10px">取消</n-button>
@@ -80,17 +87,24 @@
         </div>
       </div>
     </n-modal>
-    <n-modal v-model:show="isShowModal" :segmented="false"
-             :mask-closable="false" preset="card" title="添加群组"
-             :on-after-leave="onAddModalAfterLeave"
+    <n-modal v-model:show="isShowModifyModal" :segmented="false"
+             :mask-closable="false" preset="card" title="修改群组(服务)"
+             :on-after-leave="onModifyModalAfterLeave"
              style="width: 45%; min-width: 600px">
       <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
-        <div style="width: 1000px">
-          Model Content
+        <div style="width: 100%">
+          <div style="font-size: 12pt; font-weight: bold;">姓名</div>
+          <n-input type="text" placeholder="必填,请输入姓名" style="margin-bottom: 10px;" />
+          <div style="font-size: 12pt; font-weight: bold;">层级</div>
+          <n-select  placeholder="必填,请选择层级" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">所属群组</div>
+          <n-select  placeholder="必填,请选择所属群组" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">业务需求</div>
+          <n-input type="text" placeholder="必填,请输入业务需求" style="margin-bottom: 10px;" />
         </div>
         <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
-          <n-button @click="onAddModalFailed" style="margin-right: 10px">取消</n-button>
-          <n-button @click="onAddModalOk" type="primary">添加</n-button>
+          <n-button @click="onModifyModalFailed" style="margin-right: 10px">取消</n-button>
+          <n-button @click="onModifyModalOk" type="primary">添加</n-button>
         </div>
       </div>
     </n-modal>
@@ -119,10 +133,14 @@ function handleBatchDeleteButtonClicked() {
   })
 }
 
-let isShowModal = ref(false)
+let isShowAddModal = ref(false);
+let isShowModifyModal = ref(false);
+
+function onModifyModalAfterLeave() {
+}
 
 function handleAddButtonClicked() {
-  isShowModal.value = true
+  isShowAddModal.value = true
 }
 
 function onAddModalAfterLeave() {
@@ -130,11 +148,19 @@ function onAddModalAfterLeave() {
 }
 
 function onAddModalFailed(){
-
+  isShowAddModal.value = false;
 }
 
 function onAddModalOk() {
+  isShowAddModal.value = false;
+}
 
+function onModifyModalFailed() {
+  isShowModifyModal.value = false;
+}
+
+function onModifyModalOk(){
+  isShowModifyModal.value = false;
 }
 
 
@@ -167,6 +193,8 @@ let groups = ref([
   {
     "key": "0",
     "name": "运维一组",
+    "level": "1",
+    "parent": "1",
     "create-time": "2023/12/12 00:00:00",
     "usage": "用于处理日常工作"
   }
@@ -213,8 +241,10 @@ const columns = [
             isShowModify: true,
             isShowDelete: true,
             onDetailButtonClicked: () => {
+
             },
             onModifyButtonClicked: () => {
+              isShowModifyModal.value = true;
             },
             onDeleteButtonClicked: () => {
             }

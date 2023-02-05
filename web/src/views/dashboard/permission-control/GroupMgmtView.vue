@@ -68,12 +68,30 @@
              :on-after-leave="onAddModalAfterLeave"
              style="width: 45%; min-width: 600px">
       <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
-        <div style="width: 1000px">
-          Model Content
+        <div style="width: 100%">
+          <div style="font-size: 12pt; font-weight: bold;">名称</div>
+          <n-input type="text" placeholder="必填,请输入名称" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">用途</div>
+          <n-input type="text" placeholder="请输入用途"/>
         </div>
         <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
           <n-button @click="onAddModalFailed" style="margin-right: 10px">取消</n-button>
           <n-button @click="onAddModalOk" type="primary">添加</n-button>
+        </div>
+      </div>
+    </n-modal>
+    <n-modal v-model:show="isShowModifyModal" :segmented="false"
+             :mask-closable="false" preset="card" title="修改组"
+             :on-after-leave="onAddModalAfterLeave"
+             style="width: 45%; min-width: 600px">
+      <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
+        <div style="width: 100%">
+          <div style="font-size: 12pt; font-weight: bold;">用途</div>
+          <n-input type="text" placeholder="请输入用途"/>
+        </div>
+        <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
+          <n-button @click="onModifyModalFailed" style="margin-right: 10px">取消</n-button>
+          <n-button @click="onModifyModalOk" type="primary">添加</n-button>
         </div>
       </div>
     </n-modal>
@@ -89,6 +107,17 @@ import TableOperationAreaButtonGroup from "@/components/TableOperationAreaButton
 
 const dialog = useDialog();
 const message = useMessage();
+
+
+let isShowModifyModal = ref(false)
+
+function onModifyModalFailed() {
+  isShowModifyModal.value = false;
+}
+
+function onModifyModalOk() {
+  isShowModifyModal.value = false;
+}
 
 function handleBatchDeleteButtonClicked() {
   dialog.warning({
@@ -173,12 +202,13 @@ const columns = [
       return h(
           TableOperationAreaButtonGroup,
           {
-            isShowDetail: true,
+            isShowDetail: false,
             isShowModify: true,
             isShowDelete: true,
             onDetailButtonClicked: () => {
             },
             onModifyButtonClicked: () => {
+              isShowModifyModal.value = true
             },
             onDeleteButtonClicked: () => {
             }

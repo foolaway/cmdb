@@ -67,16 +67,84 @@
     </div>
     <n-data-table :columns="columns" :data="members" :pagination="paginationReactive" striped/>
     <n-modal v-model:show="isShowModal" :segmented="false"
-             :mask-closable="false" preset="card" title="添加群组"
+             :mask-closable="false" preset="card" title="添加成员"
              :on-after-leave="onAddModalAfterLeave"
              style="width: 45%; min-width: 600px">
       <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
-        <div style="width: 1000px">
-          Model Content
+        <div style="width: 100%">
+          <div style="font-size: 12pt; font-weight: bold;">姓名</div>
+          <n-input type="text" placeholder="必填,请输入姓名" style="margin-bottom: 10px;" />
+          <div style="font-size: 12pt; font-weight: bold;">工号</div>
+          <n-input type="text" placeholder="必填,请输入工号" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">组</div>
+          <n-select  placeholder="必填,请选择工作组" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">性别</div>
+          <n-select  placeholder="必填,请选择性别" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">手机号</div>
+          <n-input type="text" placeholder="必填,请输入手机号" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">工作邮箱</div>
+          <n-input type="text" placeholder="必填,请输入工作邮箱" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">组织架构</div>
+          <n-input type="text" placeholder="必填,请输入组织架构" style="margin-bottom: 10px" />
         </div>
         <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
           <n-button @click="onAddModalFailed" style="margin-right: 10px">取消</n-button>
           <n-button @click="onAddModalOk" type="primary">添加</n-button>
+        </div>
+      </div>
+    </n-modal>
+    <n-modal v-model:show="isShowDetailModal" :segmented="false"
+             :mask-closable="false" preset="card" title="Z13333333的详情信息"
+             :on-after-leave="onDetailModalAfterLeave"
+             style="width: 45%; min-width: 600px">
+      <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
+        <div style="width: 100%">
+          <div style="font-size: 12pt; font-weight: bold;">姓名</div>
+          <n-input type="text" placeholder="必填,请输入姓名" style="margin-bottom: 10px;" disabled />
+          <div style="font-size: 12pt; font-weight: bold;">工号</div>
+          <n-input type="text" placeholder="必填,请输入工号" style="margin-bottom: 10px" disabled />
+          <div style="font-size: 12pt; font-weight: bold;">组</div>
+          <n-select  placeholder="必填,请选择工作组" style="margin-bottom: 10px" disabled />
+          <div style="font-size: 12pt; font-weight: bold;">性别</div>
+          <n-select  placeholder="必填,请选择性别" style="margin-bottom: 10px" disabled />
+          <div style="font-size: 12pt; font-weight: bold;">手机号</div>
+          <n-input type="text" placeholder="必填,请输入手机号" style="margin-bottom: 10px" disabled />
+          <div style="font-size: 12pt; font-weight: bold;">工作邮箱</div>
+          <n-input type="text" placeholder="必填,请输入工作邮箱" style="margin-bottom: 10px" disabled />
+          <div style="font-size: 12pt; font-weight: bold;">组织架构</div>
+          <n-input type="text" placeholder="必填,请输入组织架构" style="margin-bottom: 10px" disabled />
+          <div style="font-size: 12pt; font-weight: bold;">创建时间</div>
+          <n-date-picker type="datetime" clearable disabled placeholder="创建时间"></n-date-picker>
+          <div style="font-size: 12pt; font-weight: bold;">最后一次修改时间</div>
+          <n-date-picker type="datetime" clearable disabled placeholder="最后一次修改时间"></n-date-picker>
+        </div>
+        <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
+          <n-button @click="onDetailModalOk" type="primary">关闭</n-button>
+        </div>
+      </div>
+    </n-modal>
+    <n-modal v-model:show="isShowModifyModal" :segmented="false"
+             :mask-closable="false" preset="card" title="修改成员"
+             :on-after-leave="onModifyModalAfterLeave"
+             style="width: 45%; min-width: 600px">
+      <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
+        <div style="width: 100%">
+          <div style="font-size: 12pt; font-weight: bold;">姓名</div>
+          <n-input type="text" placeholder="必填,请输入工号" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">组</div>
+          <n-select  placeholder="必填,请选择工作组" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">性别</div>
+          <n-select  placeholder="必填,请选择性别" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">手机号</div>
+          <n-input type="text" placeholder="必填,请输入手机号" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">工作邮箱</div>
+          <n-input type="text" placeholder="必填,请输入工作邮箱" style="margin-bottom: 10px" />
+          <div style="font-size: 12pt; font-weight: bold;">组织架构</div>
+          <n-input type="text" placeholder="必填,请输入组织架构" style="margin-bottom: 10px" />
+        </div>
+        <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
+          <n-button @click="onModifyModalFailed" style="margin-right: 10px">取消</n-button>
+          <n-button @click="onModifyModalOk" type="primary">添加</n-button>
         </div>
       </div>
     </n-modal>
@@ -92,6 +160,30 @@ import TableOperationAreaButtonGroup from "@/components/TableOperationAreaButton
 
 const dialog = useDialog();
 const message = useMessage();
+
+let isShowModifyModal = ref(false)
+let isShowDetailModal = ref(false)
+
+function onDetailModalAfterLeave() {
+
+}
+
+function onModifyModalAfterLeave() {
+
+}
+
+function onDetailModalOk(){
+  isShowDetailModal.value = false;
+}
+
+function onModifyModalFailed() {
+  isShowModifyModal.value = false;
+}
+
+function onModifyModalOk() {
+  isShowModifyModal.value = false;
+}
+
 
 function handleBatchDeleteButtonClicked() {
   dialog.warning({
@@ -226,10 +318,10 @@ const columns = [
             isShowModify: true,
             isShowDelete: true,
             onDetailButtonClicked: () =>{
-
+              isShowDetailModal.value = true;
             },
             onModifyButtonClicked: () => {
-
+              isShowModifyModal.value = true;
             },
             onDeleteButtonClicked: () => {
 
