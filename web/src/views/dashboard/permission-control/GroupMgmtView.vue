@@ -14,7 +14,7 @@
       <n-input type="text" placeholder="按照组名或者用途搜索,支持全文索引..."></n-input>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="info">
             <template #icon>
               <n-icon>
                 <SearchOutlined/>
@@ -26,7 +26,31 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="primary">
+            <template #icon>
+              <n-icon>
+                <PlusOutlined/>
+              </n-icon>
+            </template>
+          </n-button>
+        </template>
+        <span>添加</span>
+      </n-tooltip>
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error">
+            <template #icon>
+              <n-icon>
+                <DeleteOutlined/>
+              </n-icon>
+            </template>
+          </n-button>
+        </template>
+        <span>删除选中条目</span>
+      </n-tooltip>
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error">
             <template #icon>
               <n-icon>
                 <CloseOutlined/>
@@ -45,7 +69,7 @@
 <script setup>
 import {h, reactive, ref} from "vue";
 import {NButton, NTag} from "naive-ui";
-import {SearchOutlined, CloseOutlined} from "@vicons/antd"
+import {SearchOutlined, CloseOutlined, DeleteOutlined, PlusOutlined} from "@vicons/antd"
 
 let roleSelectOptionValue = ref(null)
 const roleSelectOptions = ref([

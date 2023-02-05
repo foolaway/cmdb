@@ -21,7 +21,7 @@
                 placeholder="选择机器状态" style="width: 200px"/>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="info">
             <template #icon>
               <n-icon>
                 <SearchOutlined/>
@@ -34,7 +34,7 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error">
             <template #icon>
               <n-icon>
                 <CloseOutlined/>

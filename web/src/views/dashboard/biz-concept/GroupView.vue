@@ -15,7 +15,7 @@
       <n-input v-model:value="bizDemand" type="text" placeholder="请输入业务需求,支持全文检索"></n-input>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="info">
             <template #icon>
               <n-icon>
                 <SearchOutlined/>
@@ -27,7 +27,31 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="primary" @click="handleAddButtonClicked">
+            <template #icon>
+              <n-icon>
+                <PlusOutlined/>
+              </n-icon>
+            </template>
+          </n-button>
+        </template>
+        <span>添加</span>
+      </n-tooltip>
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error">
+            <template #icon>
+              <n-icon>
+                <DeleteOutlined/>
+              </n-icon>
+            </template>
+          </n-button>
+        </template>
+        <span>删除选中条目</span>
+      </n-tooltip>
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error">
             <template #icon>
               <n-icon>
                 <CloseOutlined/>
@@ -39,14 +63,35 @@
       </n-tooltip>
     </div>
     <n-data-table :columns="columns" :data="groups" :pagination="paginationReactive" striped/>
+    <n-modal v-model:show="isShowModal">
+      <n-card
+          style="width: 600px"
+          title="模态框"
+          :bordered="false"
+          size="huge"
+          role="dialog"
+          aria-modal="true"
+      >
+
+      </n-card>
+    </n-modal>
     <div style="width: 100%; min-height: 20px">&nbsp;</div>
   </div>
 </template>
 
 <script setup>
 import {h, reactive, ref} from "vue";
-import {NButton, NTag} from "naive-ui";
-import {SearchOutlined, CloseOutlined} from "@vicons/antd"
+import {NButton, useDialog, useMessage} from "naive-ui";
+import {SearchOutlined, CloseOutlined, DeleteOutlined, PlusOutlined} from "@vicons/antd"
+
+const message = useMessage();
+const dialog = useDialog();
+let isShowModal = ref(false)
+
+function handleAddButtonClicked (){
+  isShowModal.value = true
+}
+
 
 let groupName = ref("");
 let parentGroup = ref("")

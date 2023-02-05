@@ -100,7 +100,6 @@ const router = createRouter({
                         },
                         {
                             path: 'vcs',
-                            name: 'config-vcs',
                             component: () => import('../views/dashboard/config/VCSView.vue'),
                             children: [
                                 {
