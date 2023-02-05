@@ -9,9 +9,12 @@
       </template>
     </n-page-header>
     <div class="op-area">
-      <n-input style="width: 700px; margin-right: 15px" v-model:value="groupName" type="text" placeholder="请输入名称"></n-input>
-      <n-select style="width: 360px; margin-right: 15px" v-model:value="groupLevelSelectOptionValue" :options="groupLevelSelectOptions" placeholder="请选择层级" />
-      <n-input style="width: 700px; margin-right: 15px" v-model:value="parentGroup" type="text" placeholder="请输入所属群组"></n-input>
+      <n-input style="width: 700px; margin-right: 15px" v-model:value="groupName" type="text"
+               placeholder="请输入名称"></n-input>
+      <n-select style="width: 360px; margin-right: 15px" v-model:value="groupLevelSelectOptionValue"
+                :options="groupLevelSelectOptions" placeholder="请选择层级"/>
+      <n-input style="width: 700px; margin-right: 15px" v-model:value="parentGroup" type="text"
+               placeholder="请输入所属群组"></n-input>
       <n-input v-model:value="bizDemand" type="text" placeholder="请输入业务需求,支持全文检索"></n-input>
       <n-tooltip trigger="hover">
         <template #trigger>
@@ -39,7 +42,7 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px" secondary type="error">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error" @click="handleBatchDeleteButtonClicked">
             <template #icon>
               <n-icon>
                 <DeleteOutlined/>
@@ -63,17 +66,33 @@
       </n-tooltip>
     </div>
     <n-data-table :columns="columns" :data="groups" :pagination="paginationReactive" striped/>
-    <n-modal v-model:show="isShowModal">
-      <n-card
-          style="width: 600px"
-          title="模态框"
-          :bordered="false"
-          size="huge"
-          role="dialog"
-          aria-modal="true"
-      >
-
-      </n-card>
+    <n-modal v-model:show="isShowModal" :segmented="false"
+             :mask-closable="false" preset="card" title="添加群组"
+             :on-after-leave="onAddModalAfterLeave"
+             style="width: 45%; min-width: 600px">
+      <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
+        <div style="width: 1000px">
+          Model Content
+        </div>
+        <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
+          <n-button @click="onAddModalFailed" style="margin-right: 10px">取消</n-button>
+          <n-button @click="onAddModalOk" type="primary">添加</n-button>
+        </div>
+      </div>
+    </n-modal>
+    <n-modal v-model:show="isShowModal" :segmented="false"
+             :mask-closable="false" preset="card" title="添加群组"
+             :on-after-leave="onAddModalAfterLeave"
+             style="width: 45%; min-width: 600px">
+      <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
+        <div style="width: 1000px">
+          Model Content
+        </div>
+        <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
+          <n-button @click="onAddModalFailed" style="margin-right: 10px">取消</n-button>
+          <n-button @click="onAddModalOk" type="primary">添加</n-button>
+        </div>
+      </div>
     </n-modal>
     <div style="width: 100%; min-height: 20px">&nbsp;</div>
   </div>
@@ -86,10 +105,35 @@ import {SearchOutlined, CloseOutlined, DeleteOutlined, PlusOutlined} from "@vico
 
 const message = useMessage();
 const dialog = useDialog();
+
+function handleBatchDeleteButtonClicked() {
+  dialog.warning({
+    title: "批量删除",
+    content: "即将删除 24 个条目, 是否继续?",
+    positiveText: "确定",
+    negativeText: "取消",
+    onPositiveClick: () => {
+      message.success("删除成功")
+    },
+  })
+}
+
 let isShowModal = ref(false)
 
-function handleAddButtonClicked (){
+function handleAddButtonClicked() {
   isShowModal.value = true
+}
+
+function onAddModalAfterLeave() {
+
+}
+
+function onAddModalFailed(){
+
+}
+
+function onAddModalOk() {
+
 }
 
 
@@ -116,7 +160,6 @@ const groupLevelSelectOptions = [
     value: "第三层"
   }
 ];
-
 
 
 let groups = ref([

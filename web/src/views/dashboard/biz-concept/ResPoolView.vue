@@ -13,7 +13,7 @@
       <n-input v-model:value="resPoolBizName" type="text" placeholder="请输入业务需求,支持全文检索.."></n-input>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="info">
             <template #icon>
               <n-icon>
                 <SearchOutlined/>
@@ -25,7 +25,7 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error">
             <template #icon>
               <n-icon>
                 <CloseOutlined/>

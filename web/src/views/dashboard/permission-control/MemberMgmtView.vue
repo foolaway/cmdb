@@ -30,7 +30,7 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px" secondary type="primary">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="primary" @click="handleAddButtonClicked">
             <template #icon>
               <n-icon>
                 <PlusOutlined/>
@@ -42,7 +42,7 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px" secondary type="error">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error" @click="handleBatchDeleteButtonClicked">
             <template #icon>
               <n-icon>
                 <DeleteOutlined/>
@@ -54,7 +54,7 @@
       </n-tooltip>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px" secondary type="error">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="error" >
             <template #icon>
               <n-icon>
                 <CloseOutlined/>
@@ -66,14 +66,43 @@
       </n-tooltip>
     </div>
     <n-data-table :columns="columns" :data="members" :pagination="paginationReactive" striped/>
+    <n-modal v-model:show="isShowModal" :segmented="false"
+             :mask-closable="false" preset="card" title="添加群组"
+             :on-after-leave="onAddModalAfterLeave"
+             style="width: 45%; min-width: 600px">
+      <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
+        <div style="width: 1000px">
+          Model Content
+        </div>
+        <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
+          <n-button @click="onAddModalFailed" style="margin-right: 10px">取消</n-button>
+          <n-button @click="onAddModalOk" type="primary">添加</n-button>
+        </div>
+      </div>
+    </n-modal>
     <div style="width: 100%; min-height: 20px">&nbsp;</div>
   </div>
 </template>
 
 <script setup>
 import {h, reactive, ref} from "vue";
-import {NButton, NTag} from "naive-ui";
+import {NButton, NTag, useDialog, useMessage} from "naive-ui";
 import {SearchOutlined, CloseOutlined, DeleteOutlined, PlusOutlined} from "@vicons/antd"
+
+const dialog = useDialog();
+const message = useMessage();
+
+function handleBatchDeleteButtonClicked() {
+  dialog.warning({
+    title: "批量删除",
+    content: "即将删除 24 个条目, 是否继续?",
+    positiveText: "确定",
+    negativeText: "取消",
+    onPositiveClick: () => {
+      message.success("删除成功")
+    },
+  })
+}
 
 let memberName = ref("")
 let memberNo = ref("")
@@ -82,6 +111,24 @@ let memberPhone = ref("")
 let memberEmail = ref("")
 let memberSexSelectOptionValue = ref(null)
 let memberArch = ref("")
+
+let isShowModal = ref(false)
+
+function handleAddButtonClicked() {
+  isShowModal.value = true
+}
+
+function onAddModalAfterLeave() {
+
+}
+
+function onAddModalFailed(){
+
+}
+
+function onAddModalOk() {
+
+}
 
 const memberSexSelectOptions = [
   {
