@@ -68,6 +68,7 @@
     <n-data-table :columns="columns" :data="groups" :pagination="paginationReactive" striped/>
     <n-modal v-model:show="isShowAddModal" :segmented="false"
              :mask-closable="false" preset="card" title="添加群组(服务)"
+
              :on-after-leave="onAddModalAfterLeave"
              style="width: 45%; min-width: 600px">
       <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
