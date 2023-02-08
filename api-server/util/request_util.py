@@ -1,6 +1,6 @@
 class RequestUtil:
     @staticmethod
-    def get_param(request, name: str):
+    def get_param_from_body_raw_json(request, name: str):
         request_context = request.json
 
         value = None
@@ -11,4 +11,14 @@ class RequestUtil:
             print("发生 KeyError 错误...")
 
         return value
+
+    @staticmethod
+    def get_param_from_url_query_param(request, name):
+        request_values = request.values
+
+        # get 获取不到默认返回 None
+        value = request_values.get(name)
+
+        return value
+
 

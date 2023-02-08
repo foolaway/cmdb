@@ -13,8 +13,8 @@ class AuthAPI:
     @staticmethod
     @bp_auth.route("/login", methods=('POST',))
     def login():
-        p_username = RequestUtil.get_param(request, "username")
-        p_password_base64 = RequestUtil.get_param(request, "password")
+        p_username = RequestUtil.get_param_from_body_raw_json(request, "username")
+        p_password_base64 = RequestUtil.get_param_from_body_raw_json(request, "password")
 
         p_password = base64.b64decode(p_password_base64).decode("UTF-8")
 
@@ -28,7 +28,7 @@ class AuthAPI:
     @staticmethod
     @bp_auth.route("/refresh", methods=('POST',))
     def refresh():
-        p_refresh = RequestUtil.get_param(request, "refresh")
+        p_refresh = RequestUtil.get_param_from_body_raw_json(request, "refresh")
         refresh = StringUtil.smart_trim(p_refresh)
 
         AuthService.refresh(refresh)
@@ -42,7 +42,7 @@ class AuthAPI:
         忘记密码, 重置密码,向可能的通知类型发送验证码信息(邮箱, 手机号)
         :return:
         """
-        p_username = RequestUtil.get_param(request, "username")
+        p_username = RequestUtil.get_param_from_body_raw_json(request, "username")
         username = StringUtil.smart_trim(p_username)
 
         AuthService.reset_password(username)
