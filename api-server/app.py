@@ -10,6 +10,7 @@ from api.res_pool_api import ResPoolAPI
 from api.safe_group_api import SafeGroupAPI
 from api.service_api import ServiceAPI
 from api.task_api import TaskAPI
+from api.overview_api import OverviewAPI
 
 app = Flask(__name__)
 
@@ -23,6 +24,7 @@ app.register_blueprint(ResPoolAPI.bp_res_pool_api)
 app.register_blueprint(SafeGroupAPI.bp_safe_group_api)
 app.register_blueprint(ServiceAPI.bp_service_api)
 app.register_blueprint(TaskAPI.bp_task_api)
+app.register_blueprint(OverviewAPI.bp_over_view_api)
 
 
 if __name__ == '__main__':

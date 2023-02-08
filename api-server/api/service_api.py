@@ -84,7 +84,17 @@ class ServiceAPI:
 
         ServiceService.update_service_by_name(name, parent, usage, update_time)
 
+        return {}
 
+    @staticmethod
+    @bp_service_api.route("/change-safe-group/<name>", methods=("PUT",))
+    def change_safe_group():
+        safe_group_list = RequestUtil.get_param_from_body_raw_json_as_list(request)
+
+        if len(safe_group_list) > 0:
+            ServiceService.change_safe_group(safe_group_list)
+
+        return {}
 
 
 

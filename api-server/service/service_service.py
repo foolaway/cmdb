@@ -23,3 +23,7 @@ class ServiceService:
     @staticmethod
     def update_service_by_name(name, parent, usage, update_time):
         pass
+
+    @staticmethod
+    def change_safe_group(safe_group_list):
+        pass
