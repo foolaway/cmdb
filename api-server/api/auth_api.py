@@ -8,10 +8,10 @@ from util.string_util import StringUtil
 
 
 class AuthAPI:
-    bp_auth = Blueprint("auth", __name__, url_prefix="/auth")
+    bp_auth_api = Blueprint("auth", __name__, url_prefix="/auth")
 
     @staticmethod
-    @bp_auth.route("/login", methods=('POST',))
+    @bp_auth_api.route("/login", methods=('POST',))
     def login():
         p_username = RequestUtil.get_param_from_body_raw_json(request, "username")
         p_password_base64 = RequestUtil.get_param_from_body_raw_json(request, "password")
@@ -26,7 +26,7 @@ class AuthAPI:
         return {}
 
     @staticmethod
-    @bp_auth.route("/refresh", methods=('POST',))
+    @bp_auth_api.route("/refresh", methods=('POST',))
     def refresh():
         p_refresh = RequestUtil.get_param_from_body_raw_json(request, "refresh")
         refresh = StringUtil.smart_trim(p_refresh)
@@ -36,7 +36,7 @@ class AuthAPI:
         return refresh
 
     @staticmethod
-    @bp_auth.route("reset-password", methods=('POST',))
+    @bp_auth_api.route("reset-password", methods=('POST',))
     def reset_password():
         """
         忘记密码, 重置密码,向可能的通知类型发送验证码信息(邮箱, 手机号)

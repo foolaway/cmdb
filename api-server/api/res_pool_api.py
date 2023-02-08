@@ -1,3 +1,5 @@
 from flask import Blueprint
 
-bp_safe_group = Blueprint("safe_group", __name__, url_prefix="/safe_group")
+
+class ResPoolAPI:
+    bp_res_pool_api = Blueprint("res_pool", __name__, url_prefix="/res_pool")
