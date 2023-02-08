@@ -102,6 +102,8 @@
           <n-select  placeholder="必填,请选择所属群组" style="margin-bottom: 10px" />
           <div style="font-size: 12pt; font-weight: bold;">业务需求</div>
           <n-input type="text" placeholder="必填,请输入业务需求" style="margin-bottom: 10px;" />
+          <div style="font-size: 12pt; font-weight: bold;">安全组</div>
+          <n-input type="textarea" rows="10" placeholder="选填, 请输入安全组名称, 使用英文半角小写逗号分割" style="margin-bottom: 10px;" />
         </div>
         <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
           <n-button @click="onModifyModalFailed" style="margin-right: 10px">取消</n-button>
@@ -115,7 +117,7 @@
 
 <script setup>
 import {h, reactive, ref} from "vue";
-import {NButton, useDialog, useMessage} from "naive-ui";
+import {NButton, NTag, useDialog, useMessage} from "naive-ui";
 import {SearchOutlined, CloseOutlined, DeleteOutlined, PlusOutlined} from "@vicons/antd"
 import TableOperationAreaButtonGroup from "@/components/TableOperationAreaButtonGroup.vue";
 
@@ -194,6 +196,11 @@ let groups = ref([
   {
     "key": "0",
     "name": "运维一组",
+    // M 表示当前群组下的机器所用的安全组
+    // G 表示当前群组下面次级群组所用的安全组
+    // 只能修改当前群组下面机器的安全组,会影响当前层级群组下面全部机器的安全组
+    // 若要修改指定机器的安全组配置,那么可以通过搜索指定的机器进行修改,在机器页面
+    "safe-groups-list": ["M:Web 服务", "M:数据库服务", "G:网关服务", "G:登录服务"],
     "level": "1",
     "parent": "1",
     "create-time": "2023/12/12 00:00:00",
@@ -222,6 +229,31 @@ const columns = [
     title: "所属群组",
     key: "parent",
     width: 250
+  },
+  {
+    title: "安全组汇总",
+    key: "safe-groups-list",
+    resizable: true,
+    render(row) {
+      return row["safe-groups-list"].map((tagKey) => {
+        return h(
+            NTag,
+            {
+              style: {
+                marginRight: "6px",
+                marginTop: "2px"
+              },
+              type: "info",
+              bordered: false,
+              size: "small"
+            },
+            {
+              default: () => tagKey
+            }
+        );
+      });
+    },
+
   },
   {
     title: "创建时间",
