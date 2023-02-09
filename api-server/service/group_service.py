@@ -1,8 +1,11 @@
+from model.group_model import GroupModel
+
+
 class GroupService:
 
     @staticmethod
-    def get_group_by_name(name):
-        pass
+    def get_group_by_name(name: str):
+        return GroupModel.get_group_by_name(name)
 
     @staticmethod
     def get_group(usage):

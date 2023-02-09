@@ -28,8 +28,8 @@ class TaskAPI:
         p_webhook_url = RequestUtil.get_param_from_body_raw_json(request, "webhook_url")
         p_webhook_sign = RequestUtil.get_param_from_body_raw_json(request, "webhook-sign")
 
-        create_time = datetime.datetime.now()
-        update_time = datetime.datetime.now()
+        create_time = datetime.datetime.utcnow()
+        update_time = datetime.datetime.utcnow()
         status = "已提交"
         timeout = None
         retry = 3

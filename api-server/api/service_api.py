@@ -63,8 +63,8 @@ class ServiceAPI:
         parent = StringUtil.smart_trim(p_parent)
         usage = StringUtil.smart_trim(p_usage)
 
-        create_time = datetime.datetime.now()
-        update_time = datetime.datetime.now()
+        create_time = datetime.datetime.utcnow()
+        update_time = datetime.datetime.utcnow()
 
         ServiceService.create_service(name, parent, usage, create_time, update_time)
 
@@ -80,7 +80,7 @@ class ServiceAPI:
         parent = StringUtil.smart_trim(p_parent)
         usage = StringUtil.smart_trim(p_usage)
 
-        update_time = datetime.datetime.now()
+        update_time = datetime.datetime.utcnow()
 
         ServiceService.update_service_by_name(name, parent, usage, update_time)
 

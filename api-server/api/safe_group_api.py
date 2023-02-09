@@ -39,8 +39,8 @@ class SafeGroupAPI:
         port_list = StringUtil.smart_trim(p_ports)
         usage = StringUtil.smart_trim(p_usage)
 
-        create_time = datetime.datetime.now()
-        update_time = datetime.datetime.now()
+        create_time = datetime.datetime.utcnow()
+        update_time = datetime.datetime.utcnow()
 
         SafeGroupService.create_safe_group(name, port_list, usage, create_time, update_time)
 
@@ -56,7 +56,7 @@ class SafeGroupAPI:
         port_list = StringUtil.smart_trim(p_ports)
         usage = StringUtil.smart_trim(p_usage)
 
-        update_time = datetime.datetime.now()
+        update_time = datetime.datetime.utcnow()
 
         SafeGroupService.update_safe_group_by_name(name, port_list, usage, update_time)
 

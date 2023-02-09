@@ -65,8 +65,8 @@ class AccountAPI:
         sex = StringUtil.smart_trim(p_sex)
         arch_group = StringUtil.smart_trim(p_arch_group)
 
-        create_time = datetime.datetime.now()
-        update_time = datetime.datetime.now()
+        create_time = datetime.datetime.utcnow()
+        update_time = datetime.datetime.utcnow()
 
         AccountService.create_account(uid, name, phone, email, sex, arch_group, create_time, update_time)
 

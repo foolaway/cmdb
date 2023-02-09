@@ -1,21 +1,26 @@
 import datetime
+import json
 
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
+from bean.dto.group_dto import GroupDTO
+from core.response.generic_json_response import GenericJsonResponse
 from service.group_service import GroupService
 from util.request_util import RequestUtil
 from util.string_util import StringUtil
 
 
 class GroupAPI:
-    bp_group_api = Blueprint("group", __name__, "/group")
+    bp_group_api = Blueprint("group", __name__, url_prefix="/group")
 
     @staticmethod
     @bp_group_api.route("/<name>", methods=("GET",))
     def get_group_by_name(name):
-        GroupService.get_group_by_name(StringUtil.smart_trim(name))
+        result = GroupService.get_group_by_name(StringUtil.smart_trim(name))
 
-        return {}
+        return GenericJsonResponse(GroupDTO(result)).build()
+        # return GenericJsonResponse("hello").build()
+        # return GenericJsonResponse(data=1).build()
 
     @staticmethod
     @bp_group_api.route("/", methods=("GET",))
@@ -37,8 +42,8 @@ class GroupAPI:
         name = StringUtil.smart_trim(p_name)
         usage = StringUtil.smart_trim(p_usage)
 
-        create_time = datetime.datetime.now()
-        update_time = datetime.datetime.now()
+        create_time = datetime.datetime.utcnow()
+        update_time = datetime.datetime.utcnow()
 
         GroupService.create_group(name, usage, create_time, update_time)
 
