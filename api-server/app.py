@@ -1,5 +1,3 @@
-from core.server import Server
-
 from api.auth_api import AuthAPI
 from api.group_api import GroupAPI
 from api.account_api import AccountAPI
@@ -12,6 +10,7 @@ from api.service_api import ServiceAPI
 from api.task_api import TaskAPI
 from api.overview_api import OverviewAPI
 from core.settings import settings
+from core.server import Server
 
 Server.app.register_blueprint(AuthAPI.bp_auth_api)
 Server.app.register_blueprint(GroupAPI.bp_group_api)
@@ -28,6 +27,5 @@ Server.app.register_blueprint(OverviewAPI.bp_over_view_api)
 app = Server.app
 
 if __name__ == '__main__':
-    print("aaaaaaaaaaaaaaaaaa")
     print(settings["listen"]["port"])
     app.run(host=settings["listen"]["bind"], port=1234, debug=True)
