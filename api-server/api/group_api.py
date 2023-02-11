@@ -17,7 +17,7 @@ class GroupAPI:
     @staticmethod
     @bp_group_api.route("/test", methods=("GET",))
     def get_test_info():
-        return "test 1"
+        return "test 2"
 
     @staticmethod
     @bp_group_api.route("/<name>", methods=("GET",))

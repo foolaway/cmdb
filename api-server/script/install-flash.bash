@@ -1,8 +1,8 @@
 #!/bin/bash
 if [ -d /cmdb-flask ];then rm -rf /cmdb-flask/*;else mkdir /cmdb-flask;fi
-cd /cmdb-flask
-git clone https://github.com/swxfll/cmdb.git
-cd cd cmdb/api-server/
+
+git clone https://github.com/swxfll/cmdb.git /cmdb-flask
+cd /cmdb-flask/api-server/
 
 docker rm -f cmdb-flask
 docker rmi cmdb-flask
