@@ -8,8 +8,8 @@ class GroupService:
         return GroupModel.get_group_by_name(name)
 
     @staticmethod
-    def get_group(usage):
-        pass
+    def get_group(usage: str | None):
+        return GroupModel.all_group(usage)
 
     @staticmethod
     def create_group(name, usage, create_time, update_time):

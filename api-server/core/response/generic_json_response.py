@@ -1,3 +1,6 @@
+import json
+
+
 class GenericJsonResponse:
     """
     通用 Json 响应对象
@@ -15,15 +18,15 @@ class GenericJsonResponse:
         result = None
 
         # 判断对象是否有 to_json 方法
-        if hasattr(self.data, "to_json"):
-            if callable(self.data.to_json):
-                result = self.data.to_json()
-        else:
-            if type(self.data) in (str, dict, list, tuple, int):
-                result = self.data
+        # if hasattr(self.data, "to_json"):
+        #     if callable(self.data.to_json):
+        #         result = self.data.to_json()
+        # else:
+        #     if type(self.data) in (str, dict, list, tuple, int):
+        #         result = self.data
 
         return {
             "code": self.code,
             "message": self.message,
-            "data": result
+            "data": self.data
         }

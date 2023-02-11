@@ -2,6 +2,7 @@ import datetime
 import json
 
 from flask import Blueprint, request, jsonify
+from flask_restful import marshal
 
 from bean.dto.group_dto import GroupDTO
 from core.response.generic_json_response import GenericJsonResponse
@@ -16,9 +17,16 @@ class GroupAPI:
     @staticmethod
     @bp_group_api.route("/<name>", methods=("GET",))
     def get_group_by_name(name):
-        result = GroupService.get_group_by_name(StringUtil.smart_trim(name))
+        group = GroupService.get_group_by_name(StringUtil.smart_trim(name))
 
-        return GenericJsonResponse(GroupDTO(result)).build()
+        group_dto = GroupDTO(
+            name=group.get_name(),
+            usage=group.get_usage(),
+            create_time=group.get_create_time(),
+            update_time=group.get_update_time()
+        )
+
+        return GenericJsonResponse(data=marshal(group_dto, fields=GroupDTO.fields)).build()
         # return GenericJsonResponse("hello").build()
         # return GenericJsonResponse(data=1).build()
 
@@ -29,9 +37,20 @@ class GroupAPI:
 
         usage = StringUtil.smart_trim(p_usage)
 
-        GroupService.get_group(usage)
+        groups = GroupService.get_group(usage)
 
-        return {}
+        dto_list = []
+
+        for group in groups:
+            dto_list.append(
+              GroupDTO(
+                group.get_name(),
+                group.get_usage(),
+                group.get_create_time(),
+                group.get_update_time())
+            )
+
+        return GenericJsonResponse(data=marshal(dto_list, fields=GroupDTO.fields)).build()
 
     @staticmethod
     @bp_group_api.route("/", methods=("POST",))
