@@ -17,16 +17,20 @@ class GroupAPI:
     @staticmethod
     @bp_group_api.route("/<name>", methods=("GET",))
     def get_group_by_name(name):
-        group = GroupService.get_group_by_name(StringUtil.smart_trim(name))
+        groups = GroupService.get_group_by_name(StringUtil.smart_trim(name))
 
-        group_dto = GroupDTO(
-            name=group.get_name(),
-            usage=group.get_usage(),
-            create_time=group.get_create_time(),
-            update_time=group.get_update_time()
-        )
+        dto_list = []
 
-        return GenericJsonResponse(data=marshal(group_dto, fields=GroupDTO.fields)).build()
+        for group in groups:
+            dto_list.append(
+                GroupDTO(
+                    group.get_name(),
+                    group.get_usage(),
+                    group.get_create_time(),
+                    group.get_update_time())
+            )
+
+        return GenericJsonResponse(data=marshal(dto_list, fields=GroupDTO.fields)).build()
         # return GenericJsonResponse("hello").build()
         # return GenericJsonResponse(data=1).build()
 

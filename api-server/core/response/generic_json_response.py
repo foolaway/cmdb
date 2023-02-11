@@ -8,7 +8,7 @@ class GenericJsonResponse:
     要求: 传入的 data 对象需具有 to_json 方法, 如若没有,则按以下步骤处理
         传入的对象属于 str, dict, list, tuple, int 中的一种类型, 则直接返回, 否则, 返回 None
     """
-    def __init__(self, data: object, message: str = None, code: str = 1000):
+    def __init__(self, data: object, message: str = None, code: str = "10000"):
         self.data = data
         self.message = message
         self.code = code

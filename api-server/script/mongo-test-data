@@ -1,0 +1,8 @@
+show dbs;
+use db_gala_cmdb
+db.group.remove({})
+db.group.insert({"_id":"运维一组", "usage":"远程测试使用1", "create_time": new Date(), "update_time": new  Date(),"is_delete": false})
+db.group.insert({"_id":"运维二组", "usage":"远程测试使用2", "create_time": new Date(), "update_time": new  Date(),"is_delete": false})
+db.group.insert({"_id":"运维三组", "usage":"远程测试使用3", "create_time": new Date(), "update_time": new  Date(),"is_delete": false})
+use db_gala_cmdb
+db.group.find()

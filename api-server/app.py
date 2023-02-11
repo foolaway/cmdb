@@ -28,4 +28,5 @@ app = Server.app
 
 if __name__ == '__main__':
     print(settings["listen"]["port"])
-    app.run(host=settings["listen"]["bind"], port=1234, debug=True)
+    # app.run(host=settings["listen"]["bind"], port=1234, debug=True)
+    # app.run(host='0.0.0.0', port=8088)
