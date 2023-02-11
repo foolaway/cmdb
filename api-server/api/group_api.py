@@ -15,6 +15,11 @@ class GroupAPI:
     bp_group_api = Blueprint("group", __name__, url_prefix="/group")
 
     @staticmethod
+    @bp_group_api.route("/test", methods=("GET",))
+    def get_test_info():
+        return "test 1"
+
+    @staticmethod
     @bp_group_api.route("/<name>", methods=("GET",))
     def get_group_by_name(name):
         groups = GroupService.get_group_by_name(StringUtil.smart_trim(name))
