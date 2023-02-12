@@ -1,8 +1,8 @@
-# 基于Centos构建(适用于国内服务器)
+# 基于Centos构建(适用于海外服务器)
 FROM node:16.18.0
 
 WORKDIR /cmdb-web
-RUN git clone https://gitee.com/yun_guo/cmdb.git /cmdb-web && cd web && npm install && npm run build
+RUN git clone https://github.com/swxfll/cmdb.git /cmdb-web && cd web && npm install && npm run build
 
 FROM nginx
 COPY --from=0 /cmdb-web/web/dist/ /data/
