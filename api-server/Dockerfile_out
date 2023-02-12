@@ -1,3 +1,4 @@
+# 基于Centos构建(适用于海外服务器)
 FROM python:3.10.10-slim-buster
 
 WORKDIR /cmdb-flask

@@ -1,3 +1,4 @@
+# 基于Centos构建(适用于国内服务器)
 FROM python:3.10.10-slim-buster
 
 WORKDIR /cmdb-flask
@@ -22,6 +23,8 @@ CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=5000"]
 # docker rm -f cmdb-flask && docker rmi cmdb-flask
 # docker build --tag cmdb-flask .
 # docker run -d --name cmdb-flask -p 5000:5000 cmdb-flask
+
+# docker system prune --volumes
 
 
 
