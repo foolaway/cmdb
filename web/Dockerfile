@@ -1,11 +1,35 @@
 FROM node:16.18.0
 
 WORKDIR /cmdb-web
-RUN git clone https://github.com/swxfll/cmdb.git /cmdb-web && cd web && npm install && npm run build
+RUN git clone https://gitee.com/yun_guo/cmdb.git /cmdb-web && cd web && npm install && npm run build
 
-CMD ["/bin/bash", "top"]
+FROM nginx
+COPY --from=0 /cmdb-web/web/dist/ /data/
+RUN echo 'upstream v1api{\n \
+    server 104.243.21.51:5000;\n \
+}\n \
+server {\n \
+    listen       80;\n \
+    server_name  localhost;\n \
+    location / {\n \
+        root   /data;\n \
+        index  index.html index.htm;\n \
+    }\n \
+\n \
+    location /v1/api {\n \
+        proxy_pass http://v1api;\n \
+        rewrite ^/v1/api/(.*)$ /$1 break;\n \
+    }\n \
+}\n' > /etc/nginx/conf.d/default.conf; \
+    nginx
 
-docker rm -f cmdb-web
-docker rmi cmdb-web
+EXPOSE 80
+
+STOPSIGNAL SIGQUIT
+
+CMD ["nginx", "-g", "daemon off;"]
+
+docker rm -f cmdb-web && docker rmi cmdb-web
 docker build --tag cmdb-web .
-docker run -d --name cmdb-web cmdb-web
+docker run -d --name cmdb-web -p 80:80 cmdb-web
+
