@@ -11,10 +11,10 @@
     <div class="op-area">
       <n-select v-model:value="roleSelectOptionValue" :options="roleSelectOptions"
                 placeholder="选择检索条件" style="width: 150px; margin-right: 5px"/>
-      <n-input type="text" placeholder="按照组名或者用途搜索,支持全文索引..."></n-input>
+      <n-input v-model:value="groupOrUsageSearchInputValue" type="text" placeholder="按照组名或者用途搜索,支持全文索引..."></n-input>
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button tertiary circle style="margin-left: 5px" secondary type="info">
+          <n-button tertiary circle style="margin-left: 5px" secondary type="info" @click="searchButtonOnClick">
             <template #icon>
               <n-icon>
                 <SearchOutlined/>
@@ -70,7 +70,7 @@
       <div style="display: flex; width: 100%; height: 100%; flex-direction: column">
         <div style="width: 100%">
           <div style="font-size: 12pt; font-weight: bold;">名称</div>
-          <n-input type="text" placeholder="必填,请输入名称" style="margin-bottom: 10px" />
+          <n-input type="text" placeholder="必填,请输入名称" style="margin-bottom: 10px"/>
           <div style="font-size: 12pt; font-weight: bold;">用途</div>
           <n-input type="text" placeholder="请输入用途"/>
         </div>
@@ -100,10 +100,88 @@
 </template>
 
 <script setup>
-import {reactive, ref, defineComponent, h} from "vue";
+import {reactive, ref, defineComponent, h, getCurrentInstance, onMounted} from "vue";
 import {NButton, NTag, useDialog, useMessage} from "naive-ui";
 import {SearchOutlined, CloseOutlined, DeleteOutlined, PlusOutlined} from "@vicons/antd"
 import TableOperationAreaButtonGroup from "@/components/TableOperationAreaButtonGroup.vue";
+
+const {proxy} = getCurrentInstance()
+const groupOrUsageSearchInputValue = ref("")
+
+onMounted(() => {
+  console.log("执行onMounted()...")
+  console.log('import.env.MODE', import.meta.env.MODE)
+  proxy.$axios.get("/api/group/", {}).then(r => {
+    if (r.status === 200) {
+      const content = r.data
+      if (content["code"] === "10000") {
+        const data = content["data"]
+        let result = [];
+
+        data.map((item) => {
+          result.push({
+            "key": item["name"],
+            "name": item["name"],
+            "create-time": item["ctime"],
+            "usage": item["usage"]
+          })
+        });
+
+        groups.value = result;
+      } else {
+      }
+    } else {
+      console.error(r.status)
+    }
+  }).catch(e => {
+  })
+})
+
+function searchButtonOnClick() {
+  let inputVal = groupOrUsageSearchInputValue.value
+  proxy.$axios.get("/api/group/" + inputVal, {
+  }).then(r => {
+    if (r.status === 200) {
+      const content = r.data
+      console.log("搜索事件执行成功")
+      if (content["code"] === "10000") {
+        const data = content["data"]
+        let result = [];
+        console.log("data", data)
+
+        data.map((item) => {
+          result.push({
+            "key": item["name"],
+            "name": item["name"],
+            "create-time": item["ctime"],
+            "usage": item["usage"]
+          })
+        });
+
+        console.log(result)
+
+        groups.value = result;
+      } else {
+      }
+    } else {
+      console.error(r.status)
+    }
+  }).catch(e => {
+  })
+}
+
+// let {proxy} = getCurrentInstance()
+// onMounted(() => {
+//   axios.get("/api/group/").then(r => {
+//     console.log(r.data)
+//   })
+//   // proxy.$axios.get("/group", {}).then(r => {
+//   //   console.log(r.data)
+//   //
+//   // }).catch(e => {
+//   //
+//   // })
+// })
 
 const dialog = useDialog();
 const message = useMessage();
@@ -165,14 +243,16 @@ const roleSelectOptions = ref([
   }
 ])
 
-let groups = ref([
-  {
-    "key": "0",
-    "name": "运维一组",
-    "create-time": "2023/12/12 00:00:00",
-    "usage": "用于处理日常工作"
-  }
-]);
+let groups = ref([]);
+
+// let groups = ref([
+//   {
+//     "key": "0",
+//     "name": "运维一组",
+//     "create-time": "2023/12/12 00:00:00",
+//     "usage": "用于处理日常工作"
+//   }
+// ]);
 
 const columns = [
   {

@@ -10,7 +10,7 @@
     </n-page-header>
     <div class="op-area">
       <n-input style="width: 700px; margin-right: 15px" v-model:value="groupName" type="text"
-               placeholder="请输入名称"></n-input>
+               placeholder="请输入名称(与其他条件互斥)"></n-input>
       <n-select style="width: 360px; margin-right: 15px" v-model:value="groupLevelSelectOptionValue"
                 :options="groupLevelSelectOptions" placeholder="请选择层级"/>
       <n-input style="width: 700px; margin-right: 15px" v-model:value="parentGroup" type="text"
@@ -102,8 +102,9 @@
           <n-select  placeholder="必填,请选择所属群组" style="margin-bottom: 10px" />
           <div style="font-size: 12pt; font-weight: bold;">业务需求</div>
           <n-input type="text" placeholder="必填,请输入业务需求" style="margin-bottom: 10px;" />
-          <div style="font-size: 12pt; font-weight: bold;">安全组</div>
-          <n-input type="textarea" rows="10" placeholder="选填, 请输入安全组名称, 使用英文半角小写逗号分割" style="margin-bottom: 10px;" />
+<!--          TODO 应该有地方向群组中添加机器和安全组-->
+<!--          <div style="font-size: 12pt; font-weight: bold;">安全组</div>-->
+<!--          <n-input type="textarea" rows="10" placeholder="选填, 请输入安全组名称, 使用英文半角小写逗号分割" style="margin-bottom: 10px;" />-->
         </div>
         <div style="display: flex; width: 100%; height: 100%; justify-content: flex-end; margin-top: 10px">
           <n-button @click="onModifyModalFailed" style="margin-right: 10px">取消</n-button>
