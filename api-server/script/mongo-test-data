@@ -1,5 +1,7 @@
 docker run -d --name cmdb-mongo -p 27017:27017 mongo
+docker exec -it cmdb-mongo /bin/bash
 
+mongosh
 show dbs;
 use db_gala_cmdb
 db.group.remove({})
