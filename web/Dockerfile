@@ -30,6 +30,6 @@ STOPSIGNAL SIGQUIT
 CMD ["nginx", "-g", "daemon off;"]
 
 docker rm -f cmdb-web && docker rmi cmdb-web
-docker build --tag cmdb-web .
+docker build --force-rm --tag  cmdb-web .
 docker run -d --name cmdb-web -p 80:80 cmdb-web
 
