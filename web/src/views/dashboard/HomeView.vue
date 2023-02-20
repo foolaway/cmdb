@@ -1,6 +1,6 @@
 <template>
   <div class="home-view">
-    <div class="welcome-text">欢迎使用 CMDB</div>
+    <div class="welcome-text">欢迎使用 ZZ-CMDB</div>
     <div class="version-text">V1.0.0</div>
     <div class="left-img">
 <!--      <img src="../../assets/images/loading.svg" alt="" style="width: 100%;height: 100%">-->

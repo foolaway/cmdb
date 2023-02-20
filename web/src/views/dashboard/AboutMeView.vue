@@ -11,7 +11,7 @@
       <div class="card">
         <n-card>
           <div class="car-title">姓名</div>
-          <div class="car-content">小张 / Z3333333 / (+86)1333333333 </div>
+          <div class="car-content">周周 / 1111111/ (+86)1111111111111 </div>
         </n-card>
       </div>
       <div class="card">

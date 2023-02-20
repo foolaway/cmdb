@@ -241,15 +241,15 @@ const memberSexSelectOptions = [
 let members = ref([
   {
     "key": "0",
-    "name": "小张",
-    "no": "z33333333333",
+    "name": "周周",
+    "no": "111111",
     "group": "运维一组",
     "arch-group": "xxxxx/xxx/xxx",
-    "phone": "13333333333",
-    "email": "zs@zs.com",
+    "phone": "234343434343434",
+    "email": "zz@163.com",
     "sex": "男",
-    "create-time": "2022:02:02 00:00:00",
-    "update-time": "2022:02:02 00:00:00"
+    "create-time": "2022:02:12 00:00:00",
+    "update-time": "2022:02:12 00:00:00"
   }
 ]);
 
