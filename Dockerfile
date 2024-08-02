@@ -1,1 +1,1 @@
-FROM registry.cn-shenzhen.aliyuncs.com/runcobo/nginx:stable-alpine
+FROM  registry.cn-hangzhou.aliyuncs.com/zhouzhidocker_new/nginx:latest
